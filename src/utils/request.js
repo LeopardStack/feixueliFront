@@ -8,13 +8,13 @@ import router from '@/router'
 
 // create  创建 axios 实例
 const request = axios.create({
-  timeout: 20000
+  timeout: 60000
 //   baseURL: 'http://localhost:8086/'
 })
 
 function getBaseURL (url) {
-  console.log(url)
-  return 'http://localhost:8086/'
+  // console.log(url)
+  return 'http://localhost:40000/'
 }
 
 // 请求拦截器
@@ -34,7 +34,7 @@ request.interceptors.request.use(function (config) {
 request.interceptors.response.use(function (response) {
   // 状态码 2XX 会执行这里
   const { code } = response.data
-  console.log(response)
+  console.log('响应拦截器', response)
   let errorMessage = ''
   if (code === 400) {
     errorMessage = '请求参数错误'
@@ -46,13 +46,12 @@ request.interceptors.response.use(function (response) {
     errorMessage = '没有权限，请联系管理员'
   } else if (code === 404) {
     errorMessage = '请求资源不存在'
-  } else if (code >= 500) {
-    errorMessage = '服务端错误，请联系管理员'
+  } else if (code === 500) {
+    errorMessage = '服务端错误，Token无效，请重新登录'
   } else {
     return response
   }
-  // console.log(errorMessage)
-  Message.error(errorMessage)
+  console.log(errorMessage)
   return response
 }, function (error) {
   console.dir(error)
@@ -70,10 +69,10 @@ request.interceptors.response.use(function (response) {
     } else if (status === 404) {
       errorMessage = '请求资源不存在'
     } else if (status >= 500) {
-      errorMessage = '服务端错误，请联系管理员'
+      errorMessage = '服务端错误，Token无效，请重新登录'
+      Message.error(errorMessage)
     }
     // console.log(errorMessage)
-    Message.error(errorMessage)
   } else if (error.request) {
     // 请求发送成功，但是未收到响应
     Message.error('请求超时，请重试')
