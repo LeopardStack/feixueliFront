@@ -55,7 +55,7 @@
                 </el-menu-item>
 
                 <el-menu-item index="/back_up/video">
-                    <i class="el-icon-document"></i><span>点播管理</span>
+                    <i class="el-icon-document"></i><span>课程管理</span>
                 </el-menu-item>
                 <el-menu-item index="/back_up/file_export">
                     <i class="el-icon-document"></i><span>项目资料导出</span>

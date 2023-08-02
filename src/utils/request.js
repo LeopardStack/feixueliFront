@@ -14,7 +14,10 @@ const request = axios.create({
 
 function getBaseURL (url) {
   // console.log(url)
+  // return 'http://localhost:40000/api'
   return 'http://localhost:40000/'
+  // return '/api'
+  // return 'http://113.108.140.170:80'
 }
 
 // 请求拦截器

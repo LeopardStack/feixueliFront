@@ -25,16 +25,23 @@
 
         <!-- 右侧消息栏 -->
         <el-drawer title="我的消息" :visible.sync="table" direction="rtl" size="20%">
-            <el-descriptions title="用户信息" style="margin-left: 20px;margin-right: 20px;">
-                <el-descriptions-item label="用户名">江苏省苏州市吴中区吴中大道 1188 号
-                    江苏省苏州市吴中区吴中大道 1188 号 江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
-            </el-descriptions>
-            <div style="margin-left: 20px;margin-right: 20px;margin-bottom: 10px;">江苏省苏州市吴中区吴中大道 1188 号
-                江苏省苏州市吴中区吴中大道 1188 号 江苏省苏州市吴中区吴中大道 1188 号</div>
-            <div style="margin-left: 20px;margin-right: 20px;">江苏省苏州市吴中区吴中大道 1188 号
-                江苏省苏州市吴中区吴中大道 1188 号 江苏省苏州市吴中区吴中大道 1188 号</div>
-
-        </el-drawer>
+    <el-descriptions title="用户信息" style="margin-left: 20px;margin-right: 20px;">
+        <el-descriptions-item label="用户名">江苏省苏州市吴中区吴中大道 1188 号
+            江苏省苏州市吴中区吴中大道 1188 号 江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
+    </el-descriptions>
+    <el-tabs v-model="activeTab" @tab-click="handleClick">
+        <el-tab-pane label="未读消息" name="unread">
+            <!-- 未读消息内容 -->
+        </el-tab-pane>
+        <el-tab-pane label="已读消息" name="read">
+            <!-- 已读消息内容 -->
+        </el-tab-pane>
+        <el-tab-pane label="公告消息" name="announcement">
+            <!-- 公告消息内容 -->
+            <p>这是一条公告消息。点击<a href="your-link-here">这里</a>查看更多信息。</p>
+        </el-tab-pane>
+    </el-tabs>
+</el-drawer>
 
         <el-dialog
       title="消息通知"
@@ -67,8 +74,9 @@ export default {
       table: false, // 添加这一行
       socket: null,
       notifications: '',
-      centerDialogVisible: false
+      centerDialogVisible: false,
 
+      activeTab: 'unread' // 默认选中的标签
     }
   },
   computed: {
@@ -149,6 +157,11 @@ export default {
     },
     handleUserInfo () {
       this.$router.push('/home')
+    },
+    // 处理消息类型选择，未读、已读、公告
+    handleClick (tab, event) {
+      // 处理标签点击事件
+      console.log(tab, event)
     }
   }
 
